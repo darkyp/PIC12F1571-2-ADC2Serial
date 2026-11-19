@@ -61,7 +61,7 @@ Because all four analog pins are utilized, the hardware EUSART TX cannot be rout
 | :--- | :--- | :--- | :--- |
 | `0` | `2 bytes` | **Sync Header** | Fixed magic bytes: `0xFF`, `0xFE` |
 | `2` | `2 bytes` | **Slow Channel 1 (`AN2`)** | 10-bit unsigned little-endian (`uint16_t`, `0..1023`) |
-| `4` | `2 bytes` | **Slow Channel 2 (`AN4`)** | 10-bit unsigned little-endian (`uint16_t`, `0..1023`) |
+| `4` | `2 bytes` | **Slow Channel 2 (`AN3`)** | 10-bit unsigned little-endian (`uint16_t`, `0..1023`) |
 | `6` | `1,024 bytes` | **256 Fast Sample Pairs** | 256 × `[Fast1 (AN0, uint16_t), Fast2 (AN1, uint16_t)]` |
 
 ### Why `0xFF 0xFE` Is Collision-Free
