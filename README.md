@@ -91,3 +91,7 @@ Every 10-bit ADC sample is transmitted in little-endian order as `[Low Byte: 0x0
 ## License
 
 This project is open-source and available under the [MIT License](LICENSE).
+
+## Acknowledgments
+
+* Firmware architecture, cycle-exact timing optimization, and documentation were developed with assistance from **Google Gemini**.
