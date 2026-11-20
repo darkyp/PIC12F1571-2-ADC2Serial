@@ -41,7 +41,7 @@ Because all four analog pins are utilized, the hardware EUSART TX cannot be rout
 ## Architecture & Timing Highlights
 
 * **Single 200 kHz (`5.00 µs`) ISR State Machine:** Timer0 triggers every **40 instruction cycles** (`5.00 µs` at `8 MIPS`), stepping both the 200 kbps UART bit-banger (`1 bit = 5.00 µs`) and the ADC acquisition/conversion pipeline in lockstep.
-* **Zero-Jitter Main Loop:** The main routine sits in an infinite 2-cycle `bra $` loop. Because the interrupted instruction is always 2 cycles, hardware interrupt entry latency is locked at a constant **4 cycles** with zero entry jitter.
+* **Zero-Jitter Synchronous Interrupts:** Internal `TMR0` interrupts have a deterministic, constant **3-cycle** hardware entry latency. With the main loop idling in `bra $` and the ISR completing well within the 40-cycle window, `TMR0` enters the ISR at an identical count every tick—guaranteeing exact **40-cycle (5.00 µs)** bit timing with zero jitter.
 * **Zero-Aperture-Jitter ADC Triggering:** Output pin updates (`PORTA`/`LATA`) and ADC channel/start writes (`ADCON0`) are pre-staged in shadow registers and committed at the exact same instruction offsets at the very top of the ISR.
 * **Zero-Overhead Shadow Register Context:** Exploits the Enhanced Mid-Range hardware shadow registers (`W`, `BSR`, `FSR0`, `FSR1`) by preloading `TMR0` reload constants and register pointers prior to entering the main loop—eliminating bank-switching and reload setup overhead inside the ISR.
 
